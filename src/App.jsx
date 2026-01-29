@@ -12,7 +12,7 @@ function App() {
     <div className="mx-auto max-w-screen-xl bg-gray-50 min-h-screen">
       <TitleBar title="Recommended Reading" />
       <MapDisplay longitude={-0.137310} latitude={51.521699} />
-      {isModalOpen ? <PlaqueModal /> : null}
+      {isModalOpen ? <PlaqueModal setIsModalOpen={setIsModalOpen} /> : null}
   </div>
   )
 }
