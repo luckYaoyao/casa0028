@@ -1,11 +1,10 @@
 import {Map, Source, Layer, Popup} from 'react-map-gl/maplibre';
 import { plaqueData } from '../data/open-plaques-london-2023-11-10-filtered';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { useState } from 'react';
 
 function MapDisplay(props) {
 
-  const [selectedPlaque, setSelectedPlaque] = useState(null);
+
 
   const plaqueLayerStyle = {
        id: 'plaques-layer',
@@ -24,11 +23,10 @@ function MapDisplay(props) {
     if (features && features.length > 0) {
       const clickedFeature = features[0];
       console.log('Clicked feature:', clickedFeature);
-      setSelectedPlaque({
+      props.setSelectedPlaque({
         geometry: clickedFeature.geometry,
         properties: clickedFeature.properties,
       })
-      // setSelectedPlaque(clickedFeature);
     }
   }
 
@@ -49,20 +47,20 @@ function MapDisplay(props) {
         <Layer {...plaqueLayerStyle} />
       </Source>
 
-      {selectedPlaque && (
+      {props.selectedPlaque && (
         <Popup
             anchor="bottom"
-            longitude={selectedPlaque.geometry.coordinates[0]}
-            latitude={selectedPlaque.geometry.coordinates[1]}
-            onClose={() => setSelectedPlaque(null)}
+            longitude={props.selectedPlaque.geometry.coordinates[0]}
+            latitude={props.selectedPlaque.geometry.coordinates[1]}
+            onClose={() => props.setSelectedPlaque(null)}
         >
             <div>
-                <h2 className="text-xl font-semibold mb-2">{selectedPlaque.properties.lead_subject_name}</h2>
-                <p className="text-xs text-blue-500 my-2"><a href={`https://openplaques.org/plaques/${selectedPlaque.properties.id1}`}>OpenPlaques</a></p>
-                <p className="text-xs text-blue-500 my-2"><a href={selectedPlaque.lead_subject_wikipedia}>Wikipedia</a></p>
+                <h2 className="text-xl font-semibold mb-2">{props.selectedPlaque.properties.lead_subject_name}</h2>
+                <p className="text-xs text-blue-500 my-2"><a href={`https://openplaques.org/plaques/${props.selectedPlaque.properties.id1}`}>OpenPlaques</a></p>
+                <p className="text-xs text-blue-500 my-2"><a href={props.selectedPlaque.lead_subject_wikipedia}>Wikipedia</a></p>
                 <button 
                     className={"rounded-l-sm border border-gray-200 px-3 py-2 font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-gray-900 focus:z-10 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white focus:outline-none disabled:pointer-events-auto disabled:opacity-50"}
-                    onClick={() => console.log('Fetch recommended reading for', selectedPlaque.properties.lead_subject_name)}
+                    onClick={() => props.setIsModalOpen(true)}
                 >Recommended Reading</button>
             </div>        
         </Popup>
