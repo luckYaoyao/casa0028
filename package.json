@@ -11,8 +11,13 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.14",
+    "chart.js": "^4.4.6",
+    "csv2geojson": "^5.1.2",
+    "mapbox-gl": "^3.8.0",
     "maplibre-gl": "^5.16.0",
+    "prop-types": "^15.8.1",
     "react": "^19.1.1",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^19.1.1",
     "react-map-gl": "^8.1.0",
     "tailwindcss": "^4.1.14"
